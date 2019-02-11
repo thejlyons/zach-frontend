@@ -3,7 +3,16 @@
         <title>Integration Management</title>
     </head>
     <body>
-        <input name="product" value="{{ product }}">
-        <input name="inventory" value="{{ inventory }}">
+        <form method="POST">
+            {% for day in days %}
+                {% if loop.index - 1 in product %}
+                    {{ day }}: <input name="product" type="checkbox" value="{{ day }}" checked><br>
+                {% else %}
+                    {{ day }}: <input name="product" type="checkbox" value="{{ day }}"><br>
+                {% endif %}
+            {% endfor %}
+            <input name="inventory" value="{{ inventory }}">
+            <input type="submit">
+        </form>
     </body>
 </html>
