@@ -1,18 +1,58 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <title>Integration Management</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Integration Settings</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+        <style>
+            main {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+        </style>
     </head>
     <body>
-        <form method="POST">
-            {% for day in days %}
-                {% if loop.index - 1 in product %}
-                    {{ day }}: <input name="product" type="checkbox" value="{{ day }}" checked><br>
-                {% else %}
-                    {{ day }}: <input name="product" type="checkbox" value="{{ day }}"><br>
-                {% endif %}
-            {% endfor %}
-            <input name="inventory" value="{{ inventory }}">
-            <input type="submit">
-        </form>
+        <nav class="navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Integration Settings</a>
+        </nav>
+
+        <main role="main" class="container">
+            <h1 class="display-4">Settings</h1>
+            <p class="lead">Set which days new products should be created and how many times per day the inventory numbers should be updated.</p>
+            <hr class="my-4">
+            <form method="POST">
+                Product Updates:
+                <small id="productHelp" class="form-text text-muted" style="padding-bottom: 10px;">The products will be updated around 1 AM on the selected day(s).</small>
+                {% for day in days %}
+                    <div class="form-check" style="margin-left: 30px;">
+                        {% if loop.index - 1 in product %}
+                            <input name="product" class="form-check-input" type="checkbox" value="{{ day }}" id="check-{{ day }}" checked>
+                        {% else %}
+                            <input name="product" class="form-check-input" type="checkbox" value="{{ day }}" id="check-{{ day }}">
+                        {% endif %}
+                        <label class="form-check-label" for="check-{{ day }}">
+                            {{ day }}
+                        </label>
+                    </div>
+                {% endfor %}
+                <br>
+                <div class="form-group row">
+                    <label for="inventory" class="col-sm-2 col-form-label">Inventory Updates:</label>
+                    <div class="col-sm-10">
+                        <input name="inventory" type="text" class="form-control" id="inventory" value="{{ inventory }}">
+                    </div>
+                    <small id="inventoryHelp" class="form-text text-muted" style="padding-left: 15px;">Number of times per day that the inventory numbers should be updated.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </main><!-- /.container -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     </body>
 </html>
