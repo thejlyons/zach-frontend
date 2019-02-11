@@ -18,7 +18,9 @@ def index():
     loops = cur.fetchall()
     loop_product = loops[0][0]
     loop_inventory = loops[0][1]
+    post = False
     if request.method == 'POST':
+        post = True
         loop_product = [i for i, day in enumerate(days) if day in request.form.getlist('product')]
         print(loop_product)
         loop_inventory = request.form.get('inventory')
@@ -30,7 +32,7 @@ def index():
         conn.commit()
     cur.close()
     conn.close()
-    return render_template('index.html', days=days, product=loop_product, inventory=loop_inventory)
+    return render_template('index.html', days=days, product=loop_product, inventory=loop_inventory, post=post)
 
 
 if __name__ == '__main__':
